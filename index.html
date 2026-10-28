@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EarnPlay — User Panel Starter</title>
+<style>
+:root{font-family:system-ui,sans-serif;color:#1f2937;background:#f5f3ff}*{box-sizing:border-box}body{margin:0}.app{max-width:480px;margin:auto;min-height:100vh;padding-bottom:30px}.hero{background:linear-gradient(135deg,#8b5cf6,#4c1d95);color:white;padding:24px 18px;border-radius:0 0 24px 24px}.balance{margin-top:16px;padding:16px;background:#ffffff20;border:1px solid #ffffff40;border-radius:16px;text-align:center}.amount{font-size:34px;font-weight:800}.content{padding:14px}.card{background:white;border:1px solid #e5e7eb;border-radius:15px;padding:14px;margin-bottom:12px}.row{display:flex;justify-content:space-between;align-items:center;gap:10px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.btn{border:0;border-radius:10px;background:#8b5cf6;color:white;padding:10px 12px;font-weight:700;cursor:pointer}.input{width:100%;padding:11px;border:1px solid #d1d5db;border-radius:9px;margin:6px 0 10px}.video{border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;background:white}.thumb{height:105px;background:linear-gradient(135deg,#312e81,#a78bfa);color:white;display:grid;place-items:center;font-size:28px}.video-body{padding:10px}.video-body h3{font-size:13px;margin:0 0 6px}.muted{color:#6b7280;font-size:12px}.video-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.status{font-size:12px;color:#047857}
+</style>
+</head>
+<body><main class="app">
+<header class="hero"><div class="row"><div><b id="userLabel">EarnPlay User</b><div style="font-size:12px;color:#ddd6fe">ভিডিও দেখুন, রেফার করুন</div></div><button class="btn" id="signInBtn">Sign in</button></div>
+<div class="balance"><div style="font-size:12px">TOTAL BALANCE</div><div class="amount">৳ <span id="balance">0.00</span></div><div style="font-size:11px">ব্যালেন্স সার্ভার থেকে লোড করতে হবে</div></div></header>
+<div class="content">
+<section class="card"><h3 style="margin-top:0">🔗 Referral link</h3><input id="refLink" class="input" readonly value="লগইন করার পর লিংক তৈরি হবে"><button class="btn" id="copyReferral">Copy link</button><p class="muted">রেফারেল ট্র্যাকিংয়ের জন্য Telegram /start payload ও সার্ভার-সাইড যাচাই দরকার।</p></section>
+<section><div class="row"><h3>🔥 Published Videos</h3><button class="btn" id="reloadVideos">Refresh</button></div><div id="videoList" class="video-list"><p class="muted">Firebase config যোগ করে সাইন ইন করুন।</p></div></section>
+<p class="muted">প্রোটোটাইপ: এই পেজ নিজে থেকে টাকা দেয় না। বিজ্ঞাপন ও রিওয়ার্ড সার্ভার-সাইড যাচাই করা আবশ্যক।</p>
+</div></main>
+<script type="module" src="./user-panel.js"></script>
+</body></html>
