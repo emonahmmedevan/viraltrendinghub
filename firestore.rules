@@ -1,0 +1,38 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function isAdmin() { return signedIn() && request.auth.token.admin == true; }
+
+    match /videos/{videoId} {
+      allow read: if resource.data.status == 'published' && signedIn();
+      allow write: if false; // publish via Cloud Function only
+    }
+    match /users/{userId} {
+      allow read: if signedIn() && request.auth.uid == userId;
+      allow create: if signedIn() && request.auth.uid == userId
+        && request.resource.data.keys().hasOnly(['displayName', 'photoURL', 'createdAt'])
+        && (!('displayName' in request.resource.data) || request.resource.data.displayName is string)
+        && (!('photoURL' in request.resource.data) || request.resource.data.photoURL is string);
+      allow update: if signedIn() && request.auth.uid == userId
+        && !request.resource.data.diff(resource.data).affectedKeys()
+          .hasAny(['balance', 'role', 'admin', 'referralCode', 'referredBy', 'telegramChatId', 'xp', 'level']);
+      allow delete: if isAdmin();
+    }
+    match /withdrawals/{withdrawalId} {
+      allow read: if signedIn() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create: if signedIn()
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.status == 'pending';
+      allow update, delete: if false; // status changes via Cloud Function only
+    }
+    match /referrals/{referralId} {
+      allow read: if signedIn() && (resource.data.referrerId == request.auth.uid || isAdmin());
+      allow write: if false; // Cloud Function only
+    }
+    match /transactions/{transactionId} {
+      allow read: if signedIn() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow write: if false; // Cloud Function only
+    }
+  }
+}
